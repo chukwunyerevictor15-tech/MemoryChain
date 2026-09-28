@@ -1,0 +1,197 @@
+const CONTRACT_ADDRESS = "0x7e92ede578bf0fb40669dc8f0f42e262b590a085";
+
+const CONTRACT_ABI = [
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "_title",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "_content",
+                "type": "string"
+            }
+        ],
+        "name": "addMemory",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_index",
+                "type": "uint256"
+            }
+        ],
+        "name": "getMemory",
+        "outputs": [
+            {
+                "internalType": "string",
+                "name": "title",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "content",
+                "type": "string"
+            },
+            {
+                "internalType": "uint256",
+                "name": "timestamp",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "owner",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "getMemoryCount",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    }
+];
+
+console.log("MemoryChain frontend loaded!");
+let provider;
+let signer;
+let contract;
+
+async function connectWallet() {
+    if (!window.ethereum) {
+        alert("Please install MetaMask.");
+        return;
+    }
+
+    try {
+        provider = new ethers.BrowserProvider(window.ethereum);
+
+        await provider.send("eth_requestAccounts", []);
+
+        signer = await provider.getSigner();
+
+        contract = new ethers.Contract(
+            CONTRACT_ADDRESS,
+            CONTRACT_ABI,
+            signer
+        );
+
+        const address = await signer.getAddress();
+
+        console.log("Wallet connected:", address);
+        connectBtn.textContent =
+    address.slice(0, 6) + "..." + address.slice(-4);
+    connectBtn.classList.add("connected");
+        alert("Wallet connected successfully!");
+        await loadMemories();
+    } catch (error) {
+        console.error(error);
+        alert("Wallet connection failed.");
+    }
+}
+const connectBtn = document.getElementById("connect-btn");
+
+connectBtn.addEventListener("click", connectWallet);
+const saveMemoryBtn = document.getElementById("saveMemoryBtn");
+const memoryInput = document.getElementById("memoryInput");
+
+saveMemoryBtn.addEventListener("click", async function () {
+    const memory = memoryInput.value.trim();
+const memoryTitle = document.getElementById("memoryTitle");
+    if (memory === "") {
+        alert("Please write a memory before saving.");
+        return;
+    }
+
+    if (!contract) {
+        alert("Please connect your wallet first.");
+        return;
+    }
+
+    try {
+        saveMemoryBtn.disabled = true;
+        saveMemoryBtn.textContent = "Saving...";
+
+        const tx = await contract.addMemory(memoryTitle.value.trim(), memory);
+
+        await tx.wait();
+
+        alert("Memory saved to the blockchain!");
+
+        memoryInput.value = "";
+    } catch (error) {
+        console.error(error);
+        alert("Failed to save memory.");
+    } finally {
+        saveMemoryBtn.disabled = false;
+        saveMemoryBtn.textContent = "Save to Blockchain";
+    }
+});
+async function loadMemories() {
+    if (!contract) {
+        return;
+    }
+
+    try {
+        const count = await contract.getMemoryCount();
+        const memoriesList = document.getElementById("memoriesList");
+
+        memoriesList.innerHTML = "";
+        if (count === 0n) {
+    memoriesList.innerHTML = `
+        <div class="empty-state">
+            <h3>No memories yet</h3>
+            <p>Your first blockchain memory will appear here.</p>
+        </div>
+    `;
+    return;
+}
+
+        for (let i = 0; i < count; i++) {
+            const memory = await contract.getMemory(i);
+
+            const memoryDiv = document.createElement("div");
+
+           const date = new Date(Number(memory[2]) * 1000);
+
+const shortAddress =
+    memory[3].slice(0, 6) + "..." + memory[3].slice(-4);
+
+memoryDiv.innerHTML = `
+    <div class="memory-card-header">
+        <span class="memory-badge">ON-CHAIN MEMORY</span>
+        <span class="memory-date">${date.toLocaleString()}</span>
+    </div>
+
+    <h3>${memory[0]}</h3>
+
+    <p>${memory[1]}</p>
+
+    <div class="memory-owner">
+        <span>🔐</span>
+        Saved by ${shortAddress}
+    </div>
+`;
+
+            memoriesList.appendChild(memoryDiv);
+        }
+    } catch (error) {
+        console.error("Error loading memories:", error);
+    }
+}

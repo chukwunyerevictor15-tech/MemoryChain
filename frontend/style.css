@@ -1,0 +1,257 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #0f172a;
+    color: #f8fafc;
+    min-height: 100vh;
+}
+
+.navbar {
+    width: 100%;
+    padding: 22px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #1e293b;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.connect-button {
+    background: #6366f1;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 20px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s ease;
+    box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.4);
+}
+
+.connect-button:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+main {
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 70px 25px;
+}
+
+.hero {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.eyebrow {
+    color: #818cf8;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 18px;
+}
+
+.hero h1 {
+    font-size: 52px;
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+.hero h1 span {
+    color: #818cf8;
+}
+
+.hero-text {
+    color: #94a3b8;
+    font-size: 17px;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.memory-form {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 18px;
+    padding: 25px;
+    margin-top: 30px;
+}
+
+.memory-form label {
+    display: block;
+    margin-bottom: 8px;
+    margin-top: 18px;
+    color: #cbd5e1;
+    font-weight: 600;
+}
+
+.memory-form label:first-child {
+    margin-top: 0;
+}
+
+input,
+textarea {
+    width: 100%;
+    background: #0f172a;
+    color: white;
+    border: 1px solid #334155;
+    border-radius: 10px;
+    padding: 14px;
+    font-size: 15px;
+    outline: none;
+}
+
+input:focus,
+textarea:focus {
+    border-color: #6366f1;
+}
+
+textarea {
+    min-height: 150px;
+    resize: vertical;
+    margin-bottom: 15px;
+}
+
+.primary-btn {
+    width: 100%;
+    background: #22c55e;
+    color: #052e16;
+    border: none;
+    border-radius: 10px;
+    padding: 14px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.primary-btn:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+#memoriesList {
+    margin-top: 40px;
+    display: grid;
+    gap: 18px;
+}
+
+#memoriesList > div {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+#memoriesList h3 {
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+#memoriesList p {
+    color: #cbd5e1;
+    line-height: 1.6;
+    margin-bottom: 12px;
+}
+
+#memoriesList small {
+    color: #64748b;
+    word-break: break-all;
+}
+
+footer {
+    text-align: center;
+    padding: 30px;
+    color: #64748b;
+}
+
+@media (max-width: 600px) {
+    .navbar {
+        padding: 18px 20px;
+    }
+
+    main {
+        padding: 45px 15px;
+    }
+
+    .hero h1 {
+        font-size: 38px;
+    }
+
+    .connect-button {
+        padding: 10px 14px;
+        font-size: 13px;
+    }
+}
+.memory-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 18px;
+}
+
+.memory-badge {
+    display: inline-block;
+    padding: 5px 9px;
+    border-radius: 999px;
+    background: rgba(99, 102, 241, 0.15);
+    color: #a5b4fc;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+}
+
+.memory-date {
+    color: #64748b;
+    font-size: 12px;
+}
+
+.memory-owner {
+    border-top: 1px solid #334155;
+    padding-top: 12px;
+    color: #94a3b8;
+    font-size: 12px;
+}
+
+#memoriesList > div {
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+#memoriesList > div:hover {
+    transform: translateY(-3px);
+    border-color: #6366f1;
+}
+.connect-button.connected {
+    background: #22c55e;
+    color: #052e16;
+    box-shadow: 0 0 15px rgba(34, 197, 94, 0.45);
+}
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    border: 1px dashed #334155;
+    border-radius: 15px;
+    background: #1e293b;
+}
+
+.empty-state h3 {
+    margin-bottom: 8px;
+    font-size: 20px;
+}
+
+.empty-state p {
+    color: #64748b;
+    font-size: 14px;
+}

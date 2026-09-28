@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MemoryChain</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="logo">MemoryChain</div>
+
+     <button id="connect-btn" class="connect-button">
+    Connect Wallet
+</button>
+    </header>
+
+    <main>
+
+        <section class="hero">
+            <p class="eyebrow">YOUR MEMORIES. YOUR BLOCKCHAIN.</p>
+
+            <h1>
+                Keep your memories<br>
+                <span>forever.</span>
+            </h1>
+
+            <p class="hero-text">
+                Store meaningful memories securely on the blockchain
+                and keep them accessible for years to come.
+            </p>
+
+            <div class="memory-form">
+<label for="memoryTitle">Memory title</label>
+
+<input
+    type="text"
+    id="memoryTitle"
+    placeholder="Give your memory a title..."
+>
+    <label for="memoryInput">What do you want to remember?</label>
+
+    <textarea
+        id="memoryInput"
+        placeholder="Write a meaningful memory..."
+        rows="6"
+    ></textarea>
+
+    <button class="primary-btn" id="saveMemoryBtn">
+        Save to Blockchain
+    </button>
+<div id="memoriesList"></div>
+</div>
+            </button>
+        </section>
+
+        <section class="memory-section">
+
+            <div class="section-heading">
+                <p class="eyebrow">YOUR COLLECTION</p>
+                <h2>My Memories</h2>
+            </div>
+
+<           <div class="memory-card empty-state">
+
+    <div class="empty-icon">✦</div>
+
+    <p class="memory-date">YOUR MEMORY SPACE</p>
+
+    <h3>Your story starts here.</h3>
+
+    <p>
+        Your saved memories will appear here once you
+        connect your wallet and store your first memory.
+    </p>
+
+</div>
+                    <p class="memory-date">No memories yet</p>
+                    <h3>Your story starts here.</h3>
+                    <p>
+                        Connect your wallet and save your first memory
+                        permanently on-chain.
+                    </p>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer>
+        <p>Built on Ethereum • MemoryChain</p>
+    </footer>
+<script src="https://cdn.jsdelivr.net/npm/ethers@6.13.5/dist/ethers.umd.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
