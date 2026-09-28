@@ -85,7 +85,12 @@ async function connectWallet() {
         await provider.send("eth_requestAccounts", []);
 
         signer = await provider.getSigner();
+const network = await provider.getNetwork();
 
+if (network.chainId !== 11155111n) {
+    alert("Please switch MetaMask to the Sepolia network.");
+    return;
+}
         contract = new ethers.Contract(
             CONTRACT_ADDRESS,
             CONTRACT_ABI,
@@ -112,9 +117,16 @@ const saveMemoryBtn = document.getElementById("saveMemoryBtn");
 const memoryInput = document.getElementById("memoryInput");
 
 saveMemoryBtn.addEventListener("click", async function () {
-    const memory = memoryInput.value.trim();
+   const memory = memoryInput.value.trim();
 const memoryTitle = document.getElementById("memoryTitle");
-    if (memory === "") {
+const title = memoryTitle.value.trim();
+
+if (title === "") {
+    alert("Please enter a title for your memory.");
+    return;
+}
+
+if (memory === "") {
         alert("Please write a memory before saving.");
         return;
     }
@@ -128,8 +140,7 @@ const memoryTitle = document.getElementById("memoryTitle");
         saveMemoryBtn.disabled = true;
         saveMemoryBtn.textContent = "Saving...";
 
-        const tx = await contract.addMemory(memoryTitle.value.trim(), memory);
-
+       const tx = await contract.addMemory(title, memory);
         await tx.wait();
 
         alert("Memory saved to the blockchain!");
@@ -173,21 +184,36 @@ async function loadMemories() {
 const shortAddress =
     memory[3].slice(0, 6) + "..." + memory[3].slice(-4);
 
-memoryDiv.innerHTML = `
-    <div class="memory-card-header">
-        <span class="memory-badge">ON-CHAIN MEMORY</span>
-        <span class="memory-date">${date.toLocaleString()}</span>
-    </div>
+memoryDiv.innerHTML = "";
 
-    <h3>${memory[0]}</h3>
+const header = document.createElement("div");
+header.className = "memory-card-header";
 
-    <p>${memory[1]}</p>
+const badge = document.createElement("span");
+badge.className = "memory-badge";
+badge.textContent = "ON-CHAIN MEMORY";
 
-    <div class="memory-owner">
-        <span>🔐</span>
-        Saved by ${shortAddress}
-    </div>
-`;
+const dateSpan = document.createElement("span");
+dateSpan.className = "memory-date";
+dateSpan.textContent = date.toLocaleString();
+
+header.appendChild(badge);
+header.appendChild(dateSpan);
+
+const title = document.createElement("h3");
+title.textContent = memory[0];
+
+const content = document.createElement("p");
+content.textContent = memory[1];
+
+const ownerDiv = document.createElement("div");
+ownerDiv.className = "memory-owner";
+ownerDiv.textContent = `🔐 Saved by ${shortAddress}`;
+
+memoryDiv.appendChild(header);
+memoryDiv.appendChild(title);
+memoryDiv.appendChild(content);
+memoryDiv.appendChild(ownerDiv);
 
             memoriesList.appendChild(memoryDiv);
         }

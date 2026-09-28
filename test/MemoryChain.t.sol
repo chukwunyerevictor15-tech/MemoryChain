@@ -44,4 +44,25 @@ contract MemoryChainTest is Test {
 
         assertEq(memoryChain.getMemoryCount(), 2);
     }
+
+function testMemoryOwnerAndTimestamp() public {
+    address user = address(0x123);
+
+    vm.prank(user);
+
+    memoryChain.addMemory(
+        "Test Memory",
+        "Testing owner and timestamp."
+    );
+
+    (
+        ,
+        ,
+        uint256 timestamp,
+        address owner
+    ) = memoryChain.getMemory(0);
+
+    assertEq(owner, user);
+    assertGt(timestamp, 0);
+}
 }
