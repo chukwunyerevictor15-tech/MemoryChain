@@ -140,7 +140,11 @@ textarea {
     transform: translateY(-2px);
     opacity: 0.9;
 }
-
+.primary-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
 #memoriesList {
     margin-top: 40px;
     display: grid;
@@ -254,4 +258,20 @@ footer {
 .empty-state p {
     color: #64748b;
     font-size: 14px;
+}
+.memory-card-header {
+    border-bottom: 1px solid #334155;
+    padding-bottom: 12px;
+}
+
+.memory-date {
+    white-space: nowrap;
+}
+
+.memory-owner {
+    margin-top: 16px;
+}
+
+#memoriesList > div {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.18);
 }

@@ -1,66 +1,145 @@
-## Foundry
+MemoryChain 🧠⛓️
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+A decentralized memory storage dApp that lets users store meaningful memories on the Ethereum blockchain.
 
-Foundry consists of:
+MemoryChain is a Web3 application built with Solidity and Foundry. It allows users to connect their MetaMask wallet, save personal memories directly on-chain, and retrieve those memories from the blockchain.
 
-- **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
-- **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
-- **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
-- **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+The goal is to explore how blockchain technology can be used for permanent, verifiable digital memories and personal records.
 
-## Documentation
+✨ Features
 
-https://book.getfoundry.sh/
+* 🔐 Connect with MetaMask
+* 📝 Create memories with custom titles and content
+* ⛓️ Store memories directly on the Ethereum Sepolia testnet
+* 📖 Read previously stored memories from the blockchain
+* 🕒 Display the timestamp of each memory
+* 👛 Display the wallet address that saved each memory
+* 🔗 On-chain ownership through msg.sender
+* 📱 Responsive frontend interface
+* 🟢 Visual wallet connection status
+* 🧪 Foundry-based smart contract tests
 
-## Usage
+🛠️ Tech Stack
 
-### Build
+* Solidity — Smart contract development
+* Foundry — Development, testing, and deployment
+* Ethers.js — Frontend blockchain interaction
+* MetaMask — Wallet connection and transaction signing
+* HTML / CSS / JavaScript — Frontend
+* Ethereum Sepolia — Test network
 
-```shell
-$ forge build
-```
+🏗️ Project Structure
 
-### Test
+MemoryChain/
+├── src/
+│   └── MemoryChain.sol
+├── test/
+│   └── MemoryChain.t.sol
+├── script/
+│   └── DeployMemoryChain.s.sol
+├── frontend/
+│   ├── index.html
+│   ├── style.css
+│   ├── app.js
+│   └── MemoryChain.json
+├── broadcast/
+│   └── DeployMemoryChain.s.sol/
+├── foundry.toml
+└── README.md
 
-```shell
-$ forge test
-```
+⚙️ Smart Contract
 
-### Format
+The MemoryChain contract stores memories using the following information:
 
-```shell
-$ forge fmt
-```
+* Title
+* Content
+* Timestamp
+* Owner address
 
-### Gas Snapshots
+Each memory is stored on-chain and can be retrieved through the contract.
 
-```shell
-$ forge snapshot
-```
+Main Functions
 
-### Anvil
+addMemory(string memory _title, string memory _content)
 
-```shell
-$ anvil
-```
+Adds a new memory to the blockchain.
 
-### Deploy
+getMemory(uint256 _index)
 
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
+Retrieves a specific memory.
 
-### Cast
+getMemoryCount()
 
-```shell
-$ cast <subcommand>
-```
+Returns the total number of stored memories.
 
-### Help
+🧪 Testing
 
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+The project uses Foundry for smart contract testing.
+
+Run:
+
+forge build
+
+Then:
+
+forge test
+
+🚀 Running the Frontend
+
+From the project directory:
+
+cd frontend
+python3 -m http.server 8000
+
+Then open:
+
+http://localhost:8000
+
+Connect MetaMask to the Sepolia network and connect your wallet.
+
+You can then create and save memories through the frontend.
+
+🌐 Deployment
+
+The MemoryChain smart contract is deployed on the Ethereum Sepolia testnet.
+
+The frontend connects to the deployed contract using its contract address and ABI.
+
+This project is currently intended for learning and demonstration purposes on a test network.
+
+🔄 How It Works
+
+User
+  ↓
+Frontend
+  ↓
+MetaMask
+  ↓
+Ethereum Sepolia
+  ↓
+MemoryChain Smart Contract
+  ↓
+Memory stored on-chain
+  ↓
+Frontend retrieves and displays memory
+
+🎯 Project Purpose
+
+MemoryChain was created as a practical Web3 project to demonstrate how a decentralized application can combine:
+
+* Smart contracts
+* Wallet authentication
+* Blockchain transactions
+* On-chain data storage
+* Frontend blockchain interaction
+* Automated smart contract testing
+
+👨🏽‍💻 Author
+
+Chukwunyere Victor
+
+Built as a Web3 development project while learning Solidity, Foundry, and decentralized application development.
+
+📄 License
+
+This project is licensed under the MIT License.
